@@ -1,0 +1,84 @@
+<div class="container">
+
+    <h1 class="pagetitle">Greeting Card Creator</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <form novalidate name="createCard" autocomplete="off" class="createCard">
+                <div class="form-group">
+                    <label for="name">Birthday person name</label>
+                    <input type="text" class="form-control" id="name" name="name" ng-model="name" required name-validator placeholder="Who's gonna have a Birthday soon?">
+
+                    <div ng-show="createCard.$submitted || createCard.name.$touched">
+                        <div class="alert alert-danger" ng-show="createCard.name.$error.$required || createCard.name.$error.nameValidator || createCard.name.$error.nameWords || createCard.name.$error.nameLength">
+                            <div ng-show="createCard.name.$error.$required">This field is required.</div>
+                            <div ng-show="createCard.name.$error.nameValidator">Oh, it's a name.It should start with capital letter.</div>
+                            <div ng-show="createCard.name.$error.nameWords">Your name should consists of {{vm.nameMaxWords}} words maximum.</div>
+                            <div ng-show="createCard.name.$error.nameLength">Your name is too short</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Birthday person age</label>
+                    <input type="text" class="form-control" id="age" name="age" ng-model="age" placeholder="How old is he (she)?" age-validator>
+
+                    <div ng-show="createCard.$submitted || createCard.age.$touched">
+                        <div class="alert alert-danger" ng-show="createCard.age.$error.ageValidator || createCard.age.$error.ageInteger">
+                            <div ng-show="createCard.age.$error.ageValidator">Birthday person should be in {{vm.minAge}}...{{vm.maxAge}} age range) </div>
+                            <div ng-show="createCard.age.$error.ageInteger">Age should be integer) </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="greetings">Greetings message:</label>
+                    <textarea class="form-control" id="greetings" name="greetings" ng-model="greetings" rows="3" greetings-validator required placeholder="Greeting words of wisdom..."></textarea>
+
+                    <div ng-show="createCard.$submitted || createCard.greetings.$touched">
+                        <div class="alert alert-danger" ng-show="createCard.greetings.$error.greetingsValidator">
+                            <div ng-show="createCard.greetings.$error.greetingsValidator">Your greeting is too short and ugly( </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="greetDate">Send on date:</label>
+                    <input type="text" class="form-control" id="greetDate" required name="greetDate" ng-model="greetdate" date-format="DD-MM-YYYY" placeholder="What date do you want to greet?" date-validator>
+
+                    <div ng-show="createCard.$submitted || createCard.greetDate.$touched">
+                        <div class="alert alert-danger" ng-show="createCard.greetDate.$error.dateValidator || createCard.greetDate.$error.dateInFuture">
+                            <div ng-show="createCard.greetDate.$error.dateValidator">Check you date, please( Format is DD-MM-YYYY</div>
+                            <div ng-show="createCard.greetDate.$error.dateInFuture">Sorry, you can't greet in the past( </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block btn-lg pull-right" ng-disabled="createCard.$invalid">Create card</button>
+
+                <div class="congrats" ng-show="createCard.$submitted && createCard.$valid">
+                    <h3>Yippee!<br>Your great greeting card is ready to send!</h3>
+                    <a class="btn btn-primary">Send it on {{greetdate}}!</a>
+                </div>
+
+
+            </form>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="preview layered-paper">
+                <div class="preview__contents">
+                    <div class="preview__name">{{name}}</div>
+                    <div class="preview__age">{{age}}</div>
+                    <div class="preview__greetings">{{greetings}}</div>
+                </div>
+            </div>
+            <div class="senddate" ng-show="createCard.greetDate.$valid"> This card will be sent on <span class="label label-success senddate__label">{{greetdate}}</span></div>
+
+        </div>
+    </div>
+</div>
