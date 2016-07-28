@@ -1,20 +1,32 @@
 //Config for ui router
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-        .state('index', {
-        url: '/',
-        templateUrl: 'app/views/index.tpl.html',
-        controller: 'indexCtrl',
-        controllerAs: 'vm'
-    })
+        .state('root', {
+            views: {
+                header: {
+                    templateUrl: 'app/tpl/header.tpl.html'
+                },
+                content: {
+                    template: '<div ui-view></div>'
+                },
+                footer: {
+                    templateUrl: 'app/tpl/footer.tpl.html'
+                }
+            }
+        })
+        .state('home', {
+            url: '/',
+            parent: 'root',
+            templateUrl: 'app/tpl/index.tpl.html'
+        })
         .state('createcard', {
-        url: 'create',
-        parent: 'index',
-        templateUrl: 'app/views/createCard.tpl.html',
-        controller: 'createCardCtrl',
-        controllerAs: 'vm'
-    });
-
+            url: '/create',
+            parent: 'root',
+            templateUrl: 'app/tpl/createCard.tpl.html',
+            controller: 'createCardCtrl',
+            controllerAs: 'vm'
+        });
 }]);

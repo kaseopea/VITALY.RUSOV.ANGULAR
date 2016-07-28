@@ -1,42 +1,50 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald:400,700,300);
-
-
 /* -------------------------------------- General Styles -------------------------------------------------- */
 body {
 	padding-top: 1em;
 }
 
 /* -------------------------------------- Typography -------------------------------------------------- */
+@font-face {
+	font-family: 'Oswald';
+	src: local('../fonts/oswald/Oswald Medium'), local('../fonts/oswald/Oswald-Medium'), url('../fonts/oswald/Oswaldmedium.woff2') format('woff2'), url('../fonts/oswald/Oswaldmedium.woff') format('woff'), url('../fonts/oswald/Oswaldmedium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
 h1.pagetitle {
 	text-align: center;
 	margin-bottom: 2rem;
 }
 
 /* -------------------------------------- Greeting Card Form -------------------------------------------------- */
-.form-control.ng-invalid.ng-dirty {
+.new-card .form-control.ng-invalid.ng-dirty {
 	border: 1px solid red;
 }
 
-.form-control.ng-valid {
+.new-card .form-control.ng-valid {
 	border: 1px solid #5cb85c;
 }
+.new-card .new-card__messages {
+	margin-top: 5px;
 
-.btn-reset {
-	color: #666;
-	outline: none;
-	outline-color: #fff;
 }
-
-.congrats {
+.new-card .congrats {
 	padding-top: 1em;
 	clear: both;
 	text-align: center;
 }
 
-.createCard .alert {
-	margin-top: .5em;
-	padding: 5px;
-	font-size: .9em;
+.new-card .alert {
+	padding: 5px 10px;
+	font-size: 11px;
+}
+
+/* -------------------------------------- Forms  -------------------------------------------------- */
+.required:after {
+	content: '*';
+	color: red;
+	font-weight: bold;
+	margin-left: 3px;
 }
 /* -------------------------------------- Preview -------------------------------------------------- */
 .preview {
@@ -46,42 +54,57 @@ h1.pagetitle {
 	display: table;
 }
 
-.preview__contents {
+.preview .preview__contents {
 	display: table-cell;
 	vertical-align: middle;
 	width: 100%;
 	height: 100%;
 	padding: 2em;
-	font-family: 'Oswald', sans-serif;
+	font-family: 'Oswald', Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.preview__name {
-	font-size: 400%;
+.preview .preview__name {
+	font-size: 50px;
 }
-.preview__age {
+.preview .preview__age {
 	color: red;
-	font-size: 800%;
+	font-size: 120px;
 }
-.preview__greetings {
-	font-size: 200%;
+.preview .preview__greetings {
+	font-size: 30px;
 }
 .senddate {
 	text-align: center;
 	margin-top: 1.5em;
 }
-.senddate__label, .senddate__label:empty {
-	font-size: 100%;
+.senddate .senddate__label, .senddate .senddate__label:empty {
+	font-size: 14px;
 	text-align: center;
 }
-.senddate__label:empty {
+.senddate .senddate__label:empty {
 	background-color: #eee;
 }
+
+/* -------------------------------------- Special Effects -------------------------------------------------- */
 .layered-paper {
-	background: #f9f9f9;
+	background: #f9f9f9 url('../images/preview-bg.png');
 	box-shadow:
 	0 1px 1px rgba(0,0,0,0.15),
 	0 10px 0 -5px #eee,
 	0 10px 1px -4px rgba(0,0,0,0.15),
 	0 20px 0 -10px #eee,
 	0 20px 1px -9px rgba(0,0,0,0.15);
+}
+
+.text3d {
+	text-shadow: 0px 1px 0px #b40000,
+	0px 2px 0px #9d0303,
+	0px 3px 0px #c30000,
+	0px 6px 1px rgba(255,0,0,0.1),
+	0px 0px 5px rgba(255,0,0,0.1),
+	0px 1px 3px rgba(255,0,0,0.3),
+	0px 3px 5px rgba(255,0,0,0.2),
+	0px 5px 10px rgba(255,0,0,0.25),
+	0px 10px 10px rgba(255,0,0,0.2),
+	0px 20px 20px rgba(255,0,0,0.15);
 }
