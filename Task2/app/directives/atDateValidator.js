@@ -6,20 +6,15 @@ app.directive('atDateValidator', ['CONST_VALIDATORS', function(CONST_VALIDATORS)
 
             //check for date format
             ctrl.$validators.dateValidator = function (modelValue) {
-                var formatPlus1 = attrs['dateFormat']
+                var formatPlus = attrs['dateFormat']
                     .toLowerCase()
                     .replace('dd', 'd')
                     .replace('mm', 'm')
                     .toUpperCase();
-                var formatPlus2 = formatPlus1
-                    .toLowerCase()
-                    .replace('yyyy', 'yy')
-                    .toUpperCase();
 
-                var check1 = moment(modelValue, formatPlus1, true).isValid();
-                var check2 = moment(modelValue, formatPlus2, true).isValid();
+                var checkPlus = moment(modelValue, formatPlus, true).isValid();
 
-                return (moment(modelValue, attrs['dateFormat'], true).isValid()) || check1 || check2;
+                return (moment(modelValue, attrs['dateFormat'], true).isValid()) || checkPlus;
             };
 
             ctrl.$validators.dateInFuture = function (modelValue) {
