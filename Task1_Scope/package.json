@@ -1,9 +1,0 @@
-{
-  "name": "task1_scope",
-  "version": "1.0.0",
-  "description": "Task 1 Understanding scope",
-  "author": "Vitaly Rusov",
-  "dependencies": {
-    "lodash": "4.13.1"
-  }
-}
