@@ -1,0 +1,39 @@
+<md-whiteframe class="md-whiteframe-1dp profile-info" flex-sm="100" flex-gt-sm="50" layout layout-align="center center">
+    <md-content layout-wrap layout-fill class="profile-info__content">
+
+            <md-progress-circular md-mode="indeterminate" md-diameter="50" ng-hide="!vm.loader"></md-progress-circular>
+
+            <ul class="profile-info__list" ng-show="vm.showContent">
+
+                <li class="profile-info__item">
+                    <p class="profile-info__label" translate="PROFILE.LABELS.LOGIN_LABEL"></p>
+
+                    <h2 class="profile-info__title">{{vm.user.email}}</h2>
+                </li>
+
+                <li class="profile-info__item">
+                    <p class="profile-info__label" translate="PROFILE.LABELS.NAME_LABEL"></p>
+
+                    <h2 class="profile-info__title">{{vm.user.name}}</h2>
+                </li>
+
+                <li class="profile-info__item">
+                    <p class="profile-info__label" translate="PROFILE.LABELS.BIRTHDATE_LABEL"></p>
+
+                    <h2 class="profile-info__title">{{vm.user.birthdate}}</h2>
+                </li>
+
+                <li class="profile-info__item">
+                    <p class="profile-info__label" translate="PROFILE.LABELS.AGE_LABEL"></p>
+
+                    <h2 class="profile-info__title">{{vm.user.age}}</h2>
+                </li>
+
+                <li class="profile-info__item">
+                    <p class="profile-info__label" translate="PROFILE.LABELS.BIO_LABEL"></p>
+
+                    <h2 class="profile-info__title">{{vm.user.bio}}</h2>
+                </li>
+            </ul>
+    </md-content>
+</md-whiteframe>

@@ -1,0 +1,28 @@
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <a><span>{{ 'GENERAL.PROJECT_TITLE' | translate }}</span></a>
+
+            <span flex></span>
+
+            <span ng-controller="languageCtrl as langCtrl">
+                <md-button ng-click="langCtrl.switchLang('en')" ng-hide="langCtrl.activeLanguage == 'en'">English
+                </md-button>
+                <md-button ng-click="langCtrl.switchLang('ru')" ng-hide="langCtrl.activeLanguage == 'ru'">Русский
+                </md-button>
+            </span>
+
+            <span flex></span>
+
+            <md-button ui-sref="login" ng-show="!dashboard.loggedIn">{{ 'AUTH.SIGNIN' | translate }}</md-button>
+            <span ng-show="dashboard.loggedIn">
+                <md-button ui-sref="viewProfile" translate="AUTH.USERGREETING"
+                           translate-values="{ username: dashboard.user.email }" aria-label="Profile"></md-button>
+                <md-button ui-sref="logout">{{ 'AUTH.LOGOUT' | translate }}</md-button>
+            </span>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <div ui-view></div>
+    </md-content>
+</div>
