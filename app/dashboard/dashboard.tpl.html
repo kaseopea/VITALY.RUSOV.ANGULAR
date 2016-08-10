@@ -1,5 +1,5 @@
 <div layout="column" layout-fill>
-    <md-toolbar>
+    <md-toolbar layout-xs="column">
         <div class="md-toolbar-tools">
             <a><span>{{ 'GENERAL.PROJECT_TITLE' | translate }}</span></a>
 
@@ -15,11 +15,9 @@
             <span flex></span>
 
             <md-button ui-sref="login" ng-show="!dashboard.loggedIn">{{ 'AUTH.SIGNIN' | translate }}</md-button>
-            <span ng-show="dashboard.loggedIn">
-                <md-button ui-sref="viewProfile" translate="AUTH.USERGREETING"
-                           translate-values="{ username: dashboard.user.email }" aria-label="Profile"></md-button>
-                <md-button ui-sref="logout">{{ 'AUTH.LOGOUT' | translate }}</md-button>
-            </span>
+            <md-button ui-sref="viewProfile" ng-show="dashboard.loggedIn" translate="AUTH.USERGREETING"
+                       translate-values="{ username: dashboard.user.email }" aria-label="Profile"></md-button>
+            <md-button ui-sref="logout" ng-show="dashboard.loggedIn">{{ 'AUTH.LOGOUT' | translate }}</md-button>
         </div>
     </md-toolbar>
     <md-content>

@@ -11,7 +11,8 @@
         'MAX_WORDS_IN_NAME': 2,
 
         // Greeting validator
-        'MIN_GREETING_LENGTH': 10,
+        'MIN_BIO_LENGTH': 10,
+        'MAX_BIO_LENGTH': 200,
 
         // Date validator
         'SYMBOLS_START_CHECK_DATE': 6

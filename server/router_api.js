@@ -18,12 +18,18 @@ apiRouter.route('/checksession')
                 .then(function(data) {
                     delete data.password;
                     delete data._id;
-                    res.send({
-                        success: true,
-                        user: data
+
+                    res.setTimeout(timeOut, function () {
+                        req.session.touch(req.session.id, req.session);
+                        res.send({
+                            success: true,
+                            user: data
+                        });
                     });
+
                 })
                 .catch(function(err) {
+                    req.session.touch(req.session.id, req.session);
                     res.send({
                         success: false,
                         error: {
@@ -33,13 +39,7 @@ apiRouter.route('/checksession')
                     });
                 });
         } else {
-            res.send({
-                success: false,
-                error: {
-                    code: 401,
-                    message: 'You are not authorized!'
-                }
-            });
+            res.sendStatus(401);
         }
     });
 
@@ -56,6 +56,7 @@ apiRouter.route('/users/:user_id')
                 .then(function(data) {
                     delete data.password;
                     delete data._id;
+                    req.session.touch(req.session.id, req.session);
                     res.setTimeout(timeOut, function () {
                         res.send({
                             success: true,
@@ -64,7 +65,8 @@ apiRouter.route('/users/:user_id')
                     });
                 })
                 .catch(function(err) {
-                    res.json({
+                    req.session.touch(req.session.id, req.session);
+                    res.send({
                         success: false,
                         error: {
                             code: 500, //todo: change code
@@ -88,13 +90,16 @@ apiRouter.route('/users/:user_id')
         if (req.session.authenticated) {
             userManager.updateUser(req.body)
                 .then(function(data) {
-                    //console.log(data);
-                    res.send({
-                        success: true,
-                        user: data
+                    req.session.touch(req.session.id, req.session);
+                    res.setTimeout(timeOut, function () {
+                        res.send({
+                            success: true,
+                            user: data
+                        });
                     });
                 }).catch(function(err) {
-                    res.json({
+                    req.session.touch(req.session.id, req.session);
+                    res.send({
                         success: false,
                         error: {
                             code: 500, //todo: change code

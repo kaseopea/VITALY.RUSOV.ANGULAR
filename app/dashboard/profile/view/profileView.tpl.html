@@ -1,7 +1,7 @@
 <md-whiteframe class="md-whiteframe-1dp profile-info" flex-sm="100" flex-gt-sm="50" layout layout-align="center center">
     <md-content layout-wrap layout-fill class="profile-info__content">
 
-            <md-progress-circular md-mode="indeterminate" md-diameter="50" ng-hide="!vm.loader"></md-progress-circular>
+            <md-progress-circular md-mode="indeterminate" md-diameter="50" ng-show="vm.loader"></md-progress-circular>
 
             <ul class="profile-info__list" ng-show="vm.showContent">
 

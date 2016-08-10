@@ -23,21 +23,19 @@
             .warnPalette('red');
 
 
-        // HTTP Interceptor
+        // HTTP Interceptor for 401 Status code
         // =============================================================================================================
-
-        //$httpProvider.interceptors.push(['$q', '$injector', '$state', function($q, $injector, $state) {
-        //    return {
-        //        'response': function(res) {
-        //
-        //            //$injector.get('$state').transitionTo('login');
-        //            return res;
-        //        },
-        //        'responseError': function(rejection) {
-        //            return $q.reject(rejection);
-        //        }
-        //    };
-        //}]);
+        $httpProvider.interceptors.push(['$q', '$window', function($q, $window) {
+            return {
+                'responseError': function(rejection) {
+                    if(rejection.status === 401 ) {
+                        console.log(rejection);
+                        $window.location = '/';
+                    }
+                    return $q.reject(rejection);
+                }
+            };
+        }]);
 
     };
 

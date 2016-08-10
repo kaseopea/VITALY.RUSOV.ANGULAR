@@ -4,7 +4,7 @@
 
 (function () {
 
-    var loginUser = function ($rootScope, $http, $httpParamSerializerJQLike, $state, localStorageService, authService, toastService) {
+    var loginUser = function ($rootScope, $http, $state, localStorageService, authService, toastService) {
 
         var vm = this;
 
@@ -45,6 +45,6 @@
 
     };
 
-    angular.module('app.auth').controller('loginCtrl', ['$rootScope', '$http', '$httpParamSerializerJQLike', '$state', 'localStorageService', 'authService', 'toastService', loginUser]);
+    angular.module('app.auth').controller('loginCtrl', ['$rootScope', '$http', '$state', 'localStorageService', 'authService', 'toastService', loginUser]);
 
 })();

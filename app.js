@@ -16,7 +16,7 @@ var app = express();
 // USER MODEL
 // =====================================================================================================================
 var UserManager = require('./server/userManager.js');
-var user1= new UserManager({
+var user1 = new UserManager({
     email: 'olga@mail.ru',
     password: md5('123'),
     name: 'Olga',
@@ -24,16 +24,15 @@ var user1= new UserManager({
     age: 32,
     bio: 'Nice beaver!'
 });
-var user2= new UserManager({
+var user2 = new UserManager({
     email: 'peter@mail.ru',
     password: md5('123'),
     name: 'Peter',
-    birthdate: '11-01-1991',
-    age: 10,
-    bio: 'A am not having any bio right now!'
+    birthdate: '11-10-1991',
+    age: 18,
+    bio: 'Do not have any bio right now!'
 });
-// user1.createUser();
-// user2.createUser();
+//user2.createUser();
 
 
 // CONFIGS

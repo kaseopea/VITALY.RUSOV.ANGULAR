@@ -10,7 +10,7 @@
                 // check for minimum length
                 ctrl.$validators.bioValidator = function (modelValue) {
                     if (modelValue) {
-                        return modelValue.length >= CONST_VALIDATORS.MIN_GREETING_LENGTH;
+                        return modelValue.length >= CONST_VALIDATORS.MIN_BIO_LENGTH;
                     }
                 };
             }
