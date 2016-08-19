@@ -10,6 +10,7 @@ var apiRouter = require('./server/router_api.js');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var pause = require('connect-pause');
 
 var app = express();
 

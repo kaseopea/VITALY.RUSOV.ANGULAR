@@ -6,7 +6,6 @@ html, body {
 
     font-family: $primary-font;
 }
-
 .at-layout {
     height: 100%;
 }
@@ -32,4 +31,10 @@ html, body {
     border:  solid 5px transparent;
     border-top-color:  #FFBE00;
     border-left-color: #FFBE00;
+}
+
+/* Dashboard
+// ==================================================================================================================*/
+.dashboard-content {
+    overflow: visible;
 }

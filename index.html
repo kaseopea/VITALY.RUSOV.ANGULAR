@@ -3,9 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title translate="GENERAL.PROJECT_TITLE"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.min.css">
-    <link rel="stylesheet" href="app/assets/css/style.css">
+    <link rel="stylesheet" href="dist/assets/css/atActionButton.css">
+    <link rel="stylesheet" href="dist/assets/css/style.css">
     <link rel="icon" href="app/assets/images/favicon.png" sizes="16x16" type="image/png">
 </head>
 <body layout="column">
@@ -30,43 +32,55 @@
     <script src="node_modules/moment/min/moment.min.js"></script>
 
     <!-- App bootstrap & config -->
-    <script src="app/common/app.module.js"></script>
-    <script src="app/common/app.run.js"></script>
-    <script src="app/config/app.const.js"></script>
-    <script src="app/config/translate.config.js"></script>
-    <script src="app/config/app.config.js"></script>
-    <script src="app/config/states.config.js"></script>
-    <script src="app/common/httpIntetceptorService.js"></script>
+    <script src="dist/common/app.module.js"></script>
+    <script src="dist/common/app.run.js"></script>
+    <script src="dist/config/app.const.js"></script>
+    <script src="dist/config/translate.config.js"></script>
+    <script src="dist/config/app.config.js"></script>
+    <script src="dist/config/states.config.js"></script>
 
     <!-- Common -->
-    <script src="app/common/languageCtrl.js"></script>
-    <script src="app/common/toastServices.js"></script>
+    <script src="dist/common/languageCtrl.js"></script>
+    <script src="dist/common/toastServices.js"></script>
 
 
     <!-- Auth module -->
-    <script src="app/auth/auth.module.js"></script>
-    <script src="app/auth/authService.js"></script>
-    <script src="app/auth/login/loginCtrl.js"></script>
-    <script src="app/auth/forgot/forgotCtrl.js"></script>
-    <script src="app/auth/logout/logoutCtrl.js"></script>
+    <script src="dist/pages/auth/auth.module.js"></script>
+    <script src="dist/pages/auth/services/authService.js"></script>
+    <script src="dist/pages/auth/login/controllers/loginCtrl.js"></script>
+    <script src="dist/pages/auth/forgot/controllers/forgotCtrl.js"></script>
+    <script src="dist/pages/auth/logout/controllers/logoutCtrl.js"></script>
     <!-- Auth Validators -->
-    <script src="app/auth/validators/atEmailValidator.js"></script>
+    <script src="dist/pages/auth/validators/atEmailValidator.js"></script>
 
     <!-- Dashboard -->
-    <script src="app/dashboard/dashboardCtrl.js"></script>
+    <script src="app/pages/dashboard/controllers/dashboardCtrl.js"></script>
 
     <!-- Profile -->
-    <script src="app/dashboard/profile/profile.module.js"></script>
-    <script src="app/dashboard/profile/profileService.js"></script>
-    <script src="app/dashboard/profile/profileCtrl.js"></script>
-    <script src="app/dashboard/profile/view/profileViewCtrl.js"></script>
-    <script src="app/dashboard/profile/edit/profileEditCtrl.js"></script>
+    <script src="dist/pages/profile/profile.module.js"></script>
+    <script src="dist/pages/profile/services/profileService.js"></script>
+    <script src="dist/pages/profile/controllers/profileCtrl.js"></script>
+    <script src="dist/pages/profile/view/controllers/profileViewCtrl.js"></script>
+    <script src="dist/pages/profile/edit/controllers/profileEditCtrl.js"></script>
     <!-- Profile Validators -->
-    <script src="app/dashboard/profile/validators/atAgeValidator.js"></script>
-    <script src="app/dashboard/profile/validators/atDateValidator.js"></script>
-    <script src="app/dashboard/profile/validators/atBioValidator.js"></script>
-    <script src="app/dashboard/profile/validators/atNameValidator.js"></script>
+    <script src="dist/pages/profile/validators/atAgeValidator.js"></script>
+    <script src="dist/pages/profile/validators/atDateValidator.js"></script>
+    <script src="dist/pages/profile/validators/atBioValidator.js"></script>
+    <script src="dist/pages/profile/validators/atNameValidator.js"></script>
 
+
+    <!-- Tree View -->
+    <!--<script src="dist/pages/treeview/controllers/treeviewCtrl.js"></script>-->
+    <!--<script src="dist/pages/treeview/services/treeService.js"></script>-->
+
+    <!-- Action Button -->
+    <script src="dist/actionButtonComponent/atActionButton.module.js"></script>
+    <script src="dist/actionButtonComponent/controllers/atActionButtonCtrl.js"></script>
+    <script src="dist/actionButtonComponent/controllers/atActionItemCtrl.js"></script>
+    <script src="dist/actionButtonComponent/directives/atActionButtonDirective.js"></script>
+    <script src="dist/actionButtonComponent/directives/atActionItemDirective.js"></script>
+
+    <script src="dist/pages/actiontest/controllers/actionTestCtrl.js"></script>
 
 </body>
 </html>

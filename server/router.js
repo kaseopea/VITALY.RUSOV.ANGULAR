@@ -5,8 +5,9 @@ var router = express.Router();
 var UserManager = require('./userManager.js');
 var userManager = new UserManager();
 var md5 = require('md5');
+var pause = require('connect-pause');
 
-var timeOut = 3*1000;
+var timeOut = 1 * 1000;
 
 // Login
 // =====================================================================================================================
@@ -17,40 +18,40 @@ router.route('/login')
         var email = req.body.email;
         var pass = req.body.password;
 
-            // Authenticate user
-            userManager.authenticate(email, md5(pass))
-                .then(function (userObj) {
+        // Authenticate user
+        userManager.authenticate(email, md5(pass))
+            .then(function (userObj) {
 
-                    //password is correct, we can authorize user
-                    req.session.authenticated = true;
+                //password is correct, we can authorize user
+                req.session.authenticated = true;
 
-                    // remove unwanted data from user object
-                    delete userObj.password;
-                    delete userObj._id;
+                // remove unwanted data from user object
+                delete userObj.password;
+                delete userObj._id;
 
-                    // set user data in session
-                    req.session.user = userObj;
+                // set user data in session
+                req.session.user = userObj;
 
-                    res.setTimeout(timeOut, function () {
-                        req.session.touch(req.session.id, req.session);
-                        res.send({
-                            success: true,
-                            user: userObj
-                        });
-                    });
-
-                })
-                .catch(function (err) {
-                    //not authorized
+                res.setTimeout(timeOut, function () {
                     req.session.touch(req.session.id, req.session);
                     res.send({
-                        success: false,
-                        error: {
-                            code: 401,
-                            message: err.toString()
-                        }
+                        success: true,
+                        user: userObj
                     });
                 });
+
+            })
+            .catch(function (err) {
+                //not authorized
+                req.session.touch(req.session.id, req.session);
+                res.send({
+                    success: false,
+                    error: {
+                        code: 401,
+                        message: err.toString()
+                    }
+                });
+            });
 
     });
 
@@ -83,6 +84,22 @@ router.route('/forgot').get(function (req, res) {
         success: true,
         message: 'Activation link has been sent to your email'
     });
+});
+
+// Action button test requests
+// =====================================================================================================================
+router.get('/action_req_1', function (req, res) {
+    res.send({success: true, message: 'Success request with no delay'});
+});
+router.get('/action_req_2', pause(5000), function (req, res) {
+    res.send({success: true, message: 'Success request with 5 sec delay'});
+});
+router.get('/action_req_3', pause(5000), function (req, res) {
+    res.sendStatus(500);
+    // res.send({success: false, message: 'No success request'});
+});
+router.get('/action_req_4', pause(70*1000), function (req, res) {
+    res.send({success: 200, message: 'Success but to long'});
 });
 
 // Exports

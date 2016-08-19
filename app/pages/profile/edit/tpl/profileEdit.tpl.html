@@ -1,0 +1,75 @@
+<md-whiteframe class="md-whiteframe-1dp profile-info" flex-sm="100" flex-gt-sm="50" layout layout-align="center center">
+    <md-content flex-sm="100" flex-gt-sm="100" layout-gt-sm="column">
+
+        <div class="md-block login-readonly">
+            <p class="login-readonly__label" translate="PROFILE.LABELS.LOGIN_LABEL">Your Login</p>
+
+            <h2 class="login-readonly__login">{{vm.user.email}}</h2>
+        </div>
+
+        <form novalidate autocomplete="off" class="profile" name="profileForm" layout-padding
+              ng-submit="vm.submitProfileUpdateForm()">
+
+            <input type="hidden" name="user.email" ng-model="vm.user.name">
+
+            <md-input-container class="md-block">
+                <label for="name" translate="PROFILE.LABELS.NAME_LABEL"></label>
+                <input type="text" id="name" name="user.name" ng-model="vm.user.name" required="required"
+                       at-name-validator>
+
+                <div ng-messages="profileForm['user.name'].$error" multiple>
+                    <div ng-message="minNameLength" translate="PROFILE.ERRORS.MIN_LENGTH_VALIDATOR"></div>
+                    <div ng-message="required" translate="PROFILE.ERRORS.NAME_REQUIRED"></div>
+                    <div ng-message="nameValidator" translate="PROFILE.ERRORS.NAME_VALIDATOR"></div>
+                    <div ng-message="nameWords" translate="PROFILE.ERRORS.NAME_WORDS_VALIDATOR"
+                         translate-values="{maxWords: vm.nameMaxWords}"></div>
+                </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label for="birthDate" translate="PROFILE.LABELS.BIRTHDATE_LABEL"></label>
+                <input type="text" id="birthDate" required="required" name="user.birthdate" at-date-validator
+                       ng-model="vm.user.birthdate" date-format="DD-MM-YYYY">
+
+                <div ng-messages="profileForm['user.birthdate'].$error" multiple>
+                    <div ng-message="required" translate="PROFILE.ERRORS.DATE_REQUIRED"></div>
+                    <div ng-message="dateValidator" translate="PROFILE.ERRORS.DATE_VALIDATOR"
+                         translate-values="{dateformat: 'DD-MM-YYYY'}"></div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label for="age" translate="PROFILE.LABELS.AGE_LABEL"></label>
+                <input type="text" id="age" required="required" name="user.age" ng-model="vm.user.age" at-age-validator>
+
+                <div ng-messages="profileForm['user.age'].$error" multiple>
+                    <div ng-message="required" translate="PROFILE.ERRORS.AGE_REQUIRED"></div>
+                    <div ng-message="ageValidator" translate="PROFILE.ERRORS.AGE_VALIDATOR"
+                         translate-values="{min:vm.minAge,max:vm.maxAge}"></div>
+                    <div ng-message="ageInteger" translate="PROFILE.ERRORS.AGE_INT_VALIDATOR"></div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label for="bio" translate="PROFILE.LABELS.BIO_LABEL"></label>
+                <textarea required="required" md-maxlength="vm.bioMaxLength" name="user.bio" id="bio"
+                          ng-model="vm.user.bio" at-bio-validator
+                          md-select-on-focus></textarea>
+
+                <div ng-messages="profileForm['user.bio'].$error" multiple>
+                    <div ng-message="required" translate="PROFILE.ERRORS.BIO_REQUIRED">This is required.</div>
+                    <div ng-message="bioValidator" translate="PROFILE.ERRORS.BIO_VALIDATOR">Your bio is too short</div>
+                </div>
+            </md-input-container>
+
+
+            <md-button type="submit" ng-disabled="profileForm.$invalid" class="md-raised md-primary">{{
+                'PROFILE.EDIT.SAVE_PROFILE_BUTTON' | translate}}
+            </md-button>
+
+        </form>
+
+    </md-content>
+
+</md-whiteframe>

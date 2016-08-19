@@ -1,0 +1,16 @@
+<md-toolbar class="md-primary md-hue-3">
+    <h2 class="md-toolbar-tools">
+        <span>{{ 'PROFILE.TITLE' | translate}}</span>
+    </h2>
+</md-toolbar>
+
+<md-content class="md-padding">
+    <md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-sref="viewProfile" name="viewProfile">{{ 'PROFILE.VIEWTAB' | translate}}</md-nav-item>
+        <md-nav-item md-nav-sref="editProfile" name="editProfile">{{ 'PROFILE.EDITTAB' | translate}}</md-nav-item>
+    </md-nav-bar>
+    <div id="content" ui-view flex></div>
+</md-content>
+
+
+
