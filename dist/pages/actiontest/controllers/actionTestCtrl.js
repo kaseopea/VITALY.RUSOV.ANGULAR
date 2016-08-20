@@ -38,6 +38,14 @@
                 url: '/action_req_4'
             });
         };
+
+        // Test 4. Slowest. More than final delay
+        vm.testAction5 = function () {
+            return $http({
+                method: 'GET',
+                url: '/action_req_5'
+            });
+        };
     };
 
     angular.module('app').controller('actionTestCtrl', ['$http', actionTestCtrlFunc]);

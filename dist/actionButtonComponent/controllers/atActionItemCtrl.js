@@ -4,87 +4,58 @@
 // =====================================================================================================================
 (function () {
 
-    var atActionItemCtrlFunc = function atActionItemCtrlFunc(scope, element, attrs, $timeout, $interval) {
+    var atActionItemCtrlFunc = function atActionItemCtrlFunc(scope, element, attrs, $timeout, $q) {
         var vm = this;
         var firstDelay = 3 * 1000;
-        var checkInterval = 5 * 1000;
         var finalCheckDelay = 60 * 1000;
-        var firstRun = true;
-        var promiseCompleted = false;
-        var promiseError = false;
-        var checkIntervalID;
+        var firstTimeout, lastTimeout;
         var clicked = false;
+        var actionPromise;
+        var statuses;
 
         //Statuses
         //0 - Play (Default)
         //1 - In progress (loading)
         //2 - Success
         //3 - Error
-        vm.statuses = ['play', 'progress', 'success', 'error'];
-        vm.currentStatus = vm.statuses[0];
-
-        // Get Status
-        function getStatus() {
-            return vm.currentStatus;
-        }
+        statuses = ['play', 'progress', 'success', 'error'];
+        vm.currentStatus = statuses[0];
 
         // Set status
         function setStatus(status) {
-            vm.currentStatus = vm.statuses[status];
-        }
-
-        function processPromise() {
-            if (promiseCompleted) {
-                promiseError ? setStatus(3) : setStatus(2);
-                //clear step
-                firstRun = false;
-                return true;
-            } else {
-                return false;
-            }
+            vm.currentStatus = statuses[status];
         }
 
         // Start Action
         vm.actionStart = function () {
             if (!clicked) {
-                var promise = scope.ngModel();
-                if (firstRun) {
-                    promise.then(function (res) {
-                        promiseCompleted = true;
-                    }).catch(function (err) {
-                        promiseCompleted = true;
-                        promiseError = true;
-                    });
+                setStatus(1);
+                actionPromise = scope.ngModel();
 
-                    setStatus(1);
+                firstTimeout = $timeout(angular.noop, firstDelay);
+                lastTimeout = $timeout(angular.noop, finalCheckDelay);
 
-                    //start delay
-                    $timeout(function () {
-                        if (!processPromise()) {
-                            checkIntervalID = $interval(function () {
-                                if (processPromise()) {
-                                    $interval.cancel(checkIntervalID);
-                                }
-                            }, checkInterval);
-
-                            // Final check
-                            $timeout(function () {
-                                if (checkIntervalID) {
-                                    $interval.cancel(checkIntervalID);
-                                }
-                                if (!processPromise()) {
-                                    setStatus(3);
-                                }
-                            }, finalCheckDelay);
-                        }
-                    }, firstDelay);
-                    firstRun = false;
-                }
+                firstTimeout.then(function () {
+                    return $q.race([actionPromise, lastTimeout]);
+                }).then(function (res) {
+                    if (res) {
+                        //setting status based on res success
+                        setStatus(res.data.success ? 2 : 3);
+                    } else {
+                        // final check error with no response
+                        setStatus(3);
+                    }
+                    // clear last timeout
+                    $timeout.cancel(lastTimeout);
+                }).catch(function (err) {
+                    // if something go wrong on serverside
+                    setStatus(3);
+                });
 
                 clicked = true;
             }
         };
     };
 
-    angular.module('atActionButton').controller('atActionItemCtrl', ['$scope', '$element', '$attrs', '$timeout', '$interval', atActionItemCtrlFunc]);
+    angular.module('atActionButton').controller('atActionItemCtrl', ['$scope', '$element', '$attrs', '$timeout', '$q', atActionItemCtrlFunc]);
 })();

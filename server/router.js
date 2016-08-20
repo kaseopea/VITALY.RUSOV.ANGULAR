@@ -96,9 +96,11 @@ router.get('/action_req_2', pause(5000), function (req, res) {
 });
 router.get('/action_req_3', pause(5000), function (req, res) {
     res.sendStatus(500);
-    // res.send({success: false, message: 'No success request'});
 });
-router.get('/action_req_4', pause(70*1000), function (req, res) {
+router.get('/action_req_4', pause(5000), function (req, res) {
+    res.send({success: false, message: 'No success request'});
+});
+router.get('/action_req_5', pause(70*1000), function (req, res) {
     res.send({success: 200, message: 'Success but to long'});
 });
 
