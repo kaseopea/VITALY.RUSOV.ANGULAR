@@ -1,4 +1,3 @@
-"use strict";
 // Tree View Service
 // =====================================================================================================================
 (function () {
@@ -36,21 +35,21 @@
             this.metadata = {
                 'title': title
             };
-            this._parent = null;
+            // this._parent = null;
             this._children = [];
         }
 
         // Set parent Method
         // =============================================================================
-        NODE.prototype.setParent = function (node) {
-            this._parent = node;
-        };
+        // NODE.prototype.setParent = function (node) {
+        //     this._parent = node;
+        // };
 
         // Get parent Method
         // =============================================================================
-        NODE.prototype.getParent = function () {
-            return this._parent;
-        };
+        // NODE.prototype.getParent = function () {
+        //     return this._parent;
+        // };
 
         // Get children Method
         // =============================================================================
@@ -66,7 +65,7 @@
             var deferred = $q.defer();
             var self = this;
 
-            node.setParent(self);
+            // node.setParent(self);
             self._children.push(node);
 
             deferred.resolve(self._children);
@@ -118,7 +117,6 @@
                     var deferred = $q.defer();
                     var count = 1;
 
-
                     // Traversing nodes
                     function listItem(current, depth) {
                         var space = '';
@@ -152,7 +150,8 @@
                     listItem(nodes, 0);
 
                     console.log(self.nodesSystem);
-                    deferred.resolve(self.nodesSystem)
+                    console.log(self.nodesSystem.length);
+                    deferred.resolve(self.nodesSystem);
 
                     return deferred.promise;
 
@@ -177,8 +176,11 @@
 
             return {
                 //Add Node Method
-                add: function (node) {
+                add: function (nodeTitle) {
+                    var node;
                     var deffered = $q.defer();
+
+                    node = new NODE(nodeTitle);
 
                     self.nodesSystem.push(node);
                     deffered.resolve(node);

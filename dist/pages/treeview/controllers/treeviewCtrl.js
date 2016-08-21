@@ -10,7 +10,7 @@
         var treeView = treeviewService.load().then(function (tree) {
             treeviewService.trees().add().then(function (nodes) {
                 console.log('starting nodes');
-                console.log(nodes.join('\n'));
+                console.log(nodes);
             });
         });
 

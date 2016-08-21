@@ -51,13 +51,13 @@
 
             // Treeview Pages
             // =========================================================================================================
-            // .state('treeview', {
-            //     parent: 'dashboard',
-            //     url: '/treeview',
-            //     templateUrl: 'app/pages/treeview/tpl/treeview.tpl.html',
-            //     controller: 'treeviewCtrl',
-            //     controllerAs: 'vm'
-            // })
+            .state('treeview', {
+                parent: 'dashboard',
+                url: '/treeview',
+                templateUrl: 'app/pages/treeview/tpl/treeview.tpl.html',
+                controller: 'treeviewCtrl',
+                controllerAs: 'vm'
+            })
 
             // Profile Pages
             // =========================================================================================================
