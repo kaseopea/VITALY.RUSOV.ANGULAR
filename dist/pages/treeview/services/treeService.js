@@ -1,85 +1,75 @@
 'use strict';
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 // Tree View Service
 // =====================================================================================================================
 (function () {
     var treeviewServiceFunc = function treeviewServiceFunc($http, $q) {
 
+        // NODE ENTITY
+        // =============================================================================================================
+        var NODE = function () {
+            function NODE(title) {
+                _classCallCheck(this, NODE);
+
+                this.id = generateID();
+                this.metadata = {
+                    'title': title
+                };
+                this._children = [];
+            }
+
+            // Get children Method
+            // =============================================================================
+
+
+            _createClass(NODE, [{
+                key: 'getChildren',
+                value: function getChildren() {
+                    var self = this;
+                    var deferred = $q.defer();
+
+                    deferred.resolve(self._children);
+
+                    return deferred.promise;
+                }
+
+                // Add children Method
+                // =============================================================================
+
+            }, {
+                key: 'addChildren',
+                value: function addChildren(node) {
+                    var deferred = $q.defer();
+                    var self = this;
+
+                    self._children.push(node);
+                    deferred.resolve(self._children);
+
+                    return deferred.promise;
+                }
+            }]);
+
+            return NODE;
+        }();
+
         // Generate uniq ID Helper Method
         // =============================================================================
+
+
         function generateID() {
             var d = new Date().getTime();
-            var id = 'yxxxxxxx'.replace(/[xy]/g, function (c) {
+            var id;
+            id = 'yxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = (d + Math.random() * 16) % 16 | 0;
                 d = Math.floor(d / 16);
                 return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
             });
             return id;
         }
-
-        // Tree
-        // =====================================================================================================================
-        // function Tree(title) {
-        //     this.version = '0';
-        //     this.id = generateID();
-        //     this.metadata = {
-        //         'title': title
-        //     };
-        //     this.rootNode = null;
-        //
-        //
-        // }
-
-        // NODE ENTITY
-        // =============================================================================
-        function NODE(title) {
-            this.id = generateID();
-            this.metadata = {
-                'title': title
-            };
-            // this._parent = null;
-            this._children = [];
-        }
-
-        // Set parent Method
-        // =============================================================================
-        // NODE.prototype.setParent = function (node) {
-        //     this._parent = node;
-        // };
-
-        // Get parent Method
-        // =============================================================================
-        // NODE.prototype.getParent = function () {
-        //     return this._parent;
-        // };
-
-        // Get children Method
-        // =============================================================================
-        NODE.prototype.getChildren = function () {
-            var deferred = $q.defer();
-            var self = this;
-            deferred.resolve(self._children);
-            return deferred.promise;
-        };
-        // Add children Method
-        // =============================================================================
-        NODE.prototype.addChildren = function (node) {
-            var deferred = $q.defer();
-            var self = this;
-
-            // node.setParent(self);
-            self._children.push(node);
-
-            deferred.resolve(self._children);
-
-            return deferred.promise;
-        };
-
-        // Delete children Method
-        // =============================================================================
-        Node.prototype.removeChildren = function () {
-            this._children = [];
-        };
 
         // =====================================================================================================================
         // =====================================================================================================================
@@ -160,7 +150,7 @@
 
                     // May be it should be more complicated
                     self.rootTree = null;
-                    deffered.resolve();
+                    deffered.resolve(self.rootTree);
 
                     return deffered.promise;
                 }

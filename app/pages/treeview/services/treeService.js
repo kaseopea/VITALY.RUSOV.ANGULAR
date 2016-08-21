@@ -3,82 +3,56 @@
 (function () {
     var treeviewServiceFunc = function ($http, $q) {
 
+        // NODE ENTITY
+        // =============================================================================================================
+        class NODE {
+            constructor(title) {
+                this.id = generateID();
+                this.metadata = {
+                    'title': title
+                };
+                this._children = [];
+            }
+
+            // Get children Method
+            // =============================================================================
+            getChildren() {
+                var self = this;
+                var deferred = $q.defer();
+
+                deferred.resolve(self._children);
+
+                return deferred.promise;
+            }
+
+            // Add children Method
+            // =============================================================================
+            addChildren(node) {
+                var deferred = $q.defer();
+                var self = this;
+
+                self._children.push(node);
+                deferred.resolve(self._children);
+
+                return deferred.promise;
+
+            }
+
+        }
+
         // Generate uniq ID Helper Method
         // =============================================================================
         function generateID() {
             var d = new Date().getTime();
-            var id = 'yxxxxxxx'.replace(/[xy]/g, function (c) {
+            var id;
+            id = 'yxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = (d + Math.random() * 16) % 16 | 0;
                 d = Math.floor(d / 16);
                 return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
             });
             return id;
         }
-
-        // Tree
-        // =====================================================================================================================
-        // function Tree(title) {
-        //     this.version = '0';
-        //     this.id = generateID();
-        //     this.metadata = {
-        //         'title': title
-        //     };
-        //     this.rootNode = null;
-        //
-        //
-        // }
-
-        // NODE ENTITY
-        // =============================================================================
-        function NODE(title) {
-            this.id = generateID();
-            this.metadata = {
-                'title': title
-            };
-            // this._parent = null;
-            this._children = [];
-        }
-
-        // Set parent Method
-        // =============================================================================
-        // NODE.prototype.setParent = function (node) {
-        //     this._parent = node;
-        // };
-
-        // Get parent Method
-        // =============================================================================
-        // NODE.prototype.getParent = function () {
-        //     return this._parent;
-        // };
-
-        // Get children Method
-        // =============================================================================
-        NODE.prototype.getChildren = function () {
-            var deferred = $q.defer();
-            var self = this;
-            deferred.resolve(self._children);
-            return deferred.promise;
-        };
-        // Add children Method
-        // =============================================================================
-        NODE.prototype.addChildren = function (node) {
-            var deferred = $q.defer();
-            var self = this;
-
-            // node.setParent(self);
-            self._children.push(node);
-
-            deferred.resolve(self._children);
-
-            return deferred.promise;
-
-        };
-
-        // Delete children Method
-        // =============================================================================
-        Node.prototype.removeChildren = function () {
-            this._children = [];
-        };
+        
 
 // =====================================================================================================================
 // =====================================================================================================================
@@ -162,7 +136,7 @@
 
                     // May be it should be more complicated
                     self.rootTree = null;
-                    deffered.resolve();
+                    deffered.resolve(self.rootTree);
 
                     return deffered.promise;
 
