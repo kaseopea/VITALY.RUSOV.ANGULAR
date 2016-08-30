@@ -1,7 +1,7 @@
 //Config for ui router
 // =====================================================================================================================
 (function () {
-    var appConfigFunc = function ($stateProvider, $urlRouterProvider) {
+    var appConfigFunc = function ($stateProvider, $urlRouterProvider, CONST) {
 
         $urlRouterProvider.otherwise('/');
 
@@ -35,18 +35,50 @@
             .state('dashboard', {
                 abstract: true,
                 resolve: {
-                    userData: function (profileService) {
-                        return profileService.checkUserSession().then(function (res) {
-                            return res.data;
-                        });
+                    userSession: function (profileService, userDataService) {
+                        return profileService.checkUserSession()
+                            .then(function (res) {
+                                if (res.data.success) {
+                                    userDataService.setUserData(res.data.user);
+                                    userDataService.authorizeUser();
+                                }
+                                return res.data;
+                            })
+                            .catch(function (err) {
+                                return null;
+                            });
                     }
                 },
                 data: {
-                    secure: true
+                    secure: true,
+                    roles: [CONST.ROLE_USER, CONST.ROLE_ADMIN]
                 },
                 templateUrl: 'app/pages/dashboard/tpl/dashboard.tpl.html',
                 controller: 'dashboardCtrl',
-                controllerAs: 'dashboard'
+                controllerAs: 'vm'
+            })
+
+            // Feedback Page
+            // =========================================================================================================
+            .state('feedback', {
+                parent: 'dashboard',
+                url: '/feedback',
+                templateUrl: 'app/pages/feedback/tpl/feedback.tpl.html',
+                controller: 'feedbackCtrl',
+                controllerAs: 'vm'
+            })
+            // User Management
+            // =========================================================================================================
+            .state('userList', {
+                parent: 'dashboard',
+                url: '/users-list',
+                data: {
+                    secure: true,
+                    roles: [CONST.ROLE_ADMIN]
+                },
+                templateUrl: 'app/pages/users/tpl/usersList.tpl.html',
+                controller: 'usersListCtrl',
+                controllerAs: 'vm'
             })
 
             // Treeview Pages
@@ -55,7 +87,7 @@
                 parent: 'dashboard',
                 url: '/treeview',
                 templateUrl: 'app/pages/treeview/tpl/treeview.tpl.html',
-                controller: 'treeviewCtrl',
+                controller: 'treeViewCtrl',
                 controllerAs: 'vm'
             })
 
@@ -95,6 +127,6 @@
             });
     };
 
-    angular.module('app').config(['$stateProvider', '$urlRouterProvider', appConfigFunc]);
+    angular.module('app').config(['$stateProvider', '$urlRouterProvider', 'CONST', appConfigFunc]);
 
 })();

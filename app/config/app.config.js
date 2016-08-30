@@ -2,12 +2,12 @@
 // =====================================================================================================================
 (function () {
 
-    var appConfig = function ($mdThemingProvider, localStorageServiceProvider, cfpLoadingBarProvider, $httpProvider) {
+    var appConfig = function ($mdThemingProvider, localStorageServiceProvider, $httpProvider, startupAppTimeProvider) {
 
-
-        // Loading Bar config
+        //startupAppTimeProvider
         // =============================================================================================================
-        cfpLoadingBarProvider.includeSpinner = false;
+        startupAppTimeProvider
+			.setDateFormat('dddd, MMMM Do YYYY, h:mm:ss a');
 
         // LocalStorage config
         // =============================================================================================================
@@ -25,6 +25,7 @@
 
         // HTTP Interceptor for 401 Status code
         // =============================================================================================================
+        $httpProvider.interceptors.push('httpLoggerInterceptor');
         $httpProvider.interceptors.push(['$q', '$window', function($q, $window) {
             return {
                 'responseError': function(rejection) {
@@ -39,6 +40,6 @@
 
     };
 
-    angular.module('app').config(['$mdThemingProvider', 'localStorageServiceProvider', 'cfpLoadingBarProvider', '$httpProvider', appConfig]);
+    angular.module('app').config(['$mdThemingProvider', 'localStorageServiceProvider', '$httpProvider', 'startupAppTimeProvider', appConfig]);
 
 })();

@@ -1,0 +1,47 @@
+<md-dialog aria-label="Create New User">
+    <form name="createUserForm" class="createUserForm" method="post" ng-submit="vm.submitForm()" novalidate>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ 'USERS.NEW.TITLE' | translate}}</h2>
+                <span flex></span>
+                <!--<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>-->
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <md-icon md-svg-src="app/assets/icons/cancel_icon.svg" aria-label="USERS.NEW.BUTTON_CLOSE_TITLE"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ng-cloak>
+            <div class="md-dialog-content">
+
+                <md-input-container>
+                    <label translate="USERS.NEW.LABEL_EMAIL"></label>
+                    <input type="text" name="email" required="required" ng-model="vm.user.email" at-email-validator/>
+
+                    <div ng-messages="createUserForm['email'].$error">
+                        <div ng-message="required" translate="USERS.NEW.ERRORS.EMAIL_REQUIRED"></div>
+                        <div ng-message="emailValidator" translate="USERS.NEW.ERRORS.EMAIL_INVALID"></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container>
+                    <label translate="USERS.NEW.LABEL_PASSWORD">Password</label>
+                    <input type="password" required="required" name="password" ng-model="vm.user.password"/>
+
+                    <div ng-messages="createUserForm['password'].$error">
+                        <div ng-message="required" translate="USERS.NEW.ERRORS.PASS_REQUIRED"></div>
+                    </div>
+                </md-input-container>
+
+
+            </div>
+            <div>
+
+        </md-dialog-content>
+
+        <md-dialog-actions class="md-dialog-actions" layout="row">
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="createUserForm.$invalid">{{ 'USERS.NEW.BUTTON_CREATE' | translate}}</md-button>
+            <md-button class="md-raised" ng-click="vm.cancel()">{{ 'USERS.NEW.BUTTON_CANCEL' | translate}}</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

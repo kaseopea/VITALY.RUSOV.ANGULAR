@@ -3,31 +3,43 @@
 
 (function () {
 
-    var profileEditCtrlFunc = function (CONST_VALIDATORS, $scope, $http, $rootScope, $state, toastService, userData, profileService) {
+    var profileEditCtrlFunc = function (CONST, loaderService, $state, $rootScope, toastService, userDataService, profileService) {
 
-        this.user = angular.fromJson(userData.user);
+        var vm = this;
+
+        loaderService.addLoader();
+        
+        vm.user = userDataService.getUserData();
 
         //Sending some constants to view
-        this.nameMaxWords = CONST_VALIDATORS.MAX_WORDS_IN_NAME;
-        this.minAge = CONST_VALIDATORS.AGE_MINIMUM;
-        this.maxAge = CONST_VALIDATORS.AGE_MAXIMUM;
-        this.bioMaxLength = CONST_VALIDATORS.MAX_BIO_LENGTH;
+        vm.nameMaxWords = CONST.MAX_WORDS_IN_NAME;
+        vm.minAge = CONST.AGE_MINIMUM;
+        vm.maxAge = CONST.AGE_MAXIMUM;
+        vm.bioMaxLength = CONST.MAX_BIO_LENGTH;
 
         //setting current tab
         $rootScope.currentNavItem = $state.current.name;
 
         //Profile Update form
-        this.submitProfileUpdateForm = function() {
+        vm.submitProfileUpdateForm = function () {
 
-            profileService.updateUserProfile(this.user)
-                .then( function(data) {
+            loaderService.showLoader();
+
+            profileService.updateUserProfile(vm.user)
+                .then(function (data) {
+
+                    userDataService.setUserData(data.data.user);
+
                     $state.go('viewProfile');
-                });
-
+                    loaderService.hideLoader();
+                }).catch(function (err) {
+                toastService.show(err.toString());
+                loaderService.hideLoader();
+            });
         };
     };
 
-    angular.module('app.profile').controller('profileEditCtrl', ['CONST_VALIDATORS', '$scope', '$http', '$rootScope', '$state', 'toastService', 'userData', 'profileService', profileEditCtrlFunc]);
+    angular.module('app.profile').controller('profileEditCtrl', ['CONST', 'loaderService', '$state', '$rootScope', 'toastService', 'userDataService', 'profileService', profileEditCtrlFunc]);
 
 })();
 

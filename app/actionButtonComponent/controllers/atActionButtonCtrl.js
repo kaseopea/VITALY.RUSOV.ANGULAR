@@ -8,6 +8,10 @@
         // Actions Menu Open/Close Flag
         vm.showActionsMenu = false;
 
+
+		// Get actions
+		vm.actions = scope.ngModel;
+
         // Open/Close Function
         vm.showActions = function () {
             vm.showActionsMenu = vm.showActionsMenu ? false : true;

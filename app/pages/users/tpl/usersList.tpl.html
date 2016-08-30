@@ -1,0 +1,31 @@
+<md-toolbar class="md-primary md-hue-3">
+    <h2 class="md-toolbar-tools">
+        <span>{{ 'USERS.MANAGE_TITLE' | translate}}</span>
+    </h2>
+</md-toolbar>
+<div class="users-loader">
+    <md-progress-circular class="progress-circular" md-mode="indeterminate" md-diameter="50" ng-show="vm.loader"></md-progress-circular>
+</div>
+<div class="users-content" ng-show="vm.showContent">
+    <md-content class="dashboard-content-inner">
+        <md-button class="md-raised" ng-click="vm.createNewUser()">{{ 'USERS.LIST.NEW_USER' | translate}}</md-button>
+        <div class="t-table">
+            <div ng-repeat="user in vm.users | orderBy:'email'" class="t-row">
+
+                <div class="t-cell cell-email">{{user.email}} <span ng-if="user.role=='admin'"
+                                                                    class="label label-admin">{{ 'USERS.LIST.ADMIN_BADGE' | translate}}</span>
+                </div>
+                <div class="t-cell cell-name">{{user.name}}</div>
+                <div class="t-cell cell-age">{{user.age}}</div>
+                <div class="t-cell cell-actions">
+                    <md-button class="md-raised" ng-click="vm.editUser(user.email)">{{ 'USERS.LIST.EDIT' | translate}}
+                    </md-button>
+                    <md-button class="md-raised md-warn" ng-if="user.role!=='admin'"
+                               ng-click="vm.deleteUser(user.email)">{{ 'USERS.LIST.DELETE' | translate}}
+                    </md-button>
+                </div>
+            </div>
+        </div>
+
+    </md-content>
+</div>

@@ -1,0 +1,56 @@
+<md-toolbar class="md-primary md-hue-3">
+    <h2 class="md-toolbar-tools">
+        <span>{{ 'FEEDBACK.TITLE' | translate}}</span>
+    </h2>
+</md-toolbar>
+
+<md-content class="dashboard-content-inner">
+
+    <md-whiteframe class="md-whiteframe-1dp feedback" flex-sm="100" flex-gt-sm="50" layout layout-align="center center" >
+
+            <md-progress-circular md-mode="indeterminate" md-diameter="50" ng-show="vm.loader"></md-progress-circular>
+
+            <form novalidate autocomplete="off" class="feedback" name="vm.form" layout-padding ng-submit="vm.submitForm()" ng-show="vm.showContent">
+
+                <md-input-container class="md-block">
+                    <label for="name" translate="FEEDBACK.LABELS.NAME"></label>
+                    <input type="text" id="name" name="feedback.name" ng-model="vm.feedback.name" required at-name-validator>
+
+                    <div ng-messages="vm.form['feedback.name'].$error" multiple>
+                        <div ng-message="required" translate="PROFILE.ERRORS.NAME_REQUIRED"></div>
+                        <div ng-message="minNameLength" translate="PROFILE.ERRORS.MIN_LENGTH_VALIDATOR"></div>
+                        <div ng-message="nameValidator" translate="PROFILE.ERRORS.NAME_VALIDATOR"></div>
+                        <div ng-message="nameWords" translate="PROFILE.ERRORS.NAME_WORDS_VALIDATOR" translate-values="{maxWords: vm.nameMaxWords}"></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label for="email" translate="FEEDBACK.LABELS.EMAIL"></label>
+                    <input type="text" id="email" name="feedback.email" ng-model="vm.feedback.email" required at-email-validator>
+
+                    <div ng-messages="vm.form['feedback.email'].$error" multiple>
+                        <div ng-message="required" translate="AUTH.ERRORS.EMAIL_REQUIRED"></div>
+                        <div ng-message="emailValidator" translate="AUTH.ERRORS.EMAIL_INVALID"></div>
+                    </div>
+                </md-input-container>
+
+
+                <md-input-container class="md-block">
+                    <label for="message" translate="FEEDBACK.LABELS.MESSAGE"></label>
+                    <textarea required md-maxlength="vm.maxMessageLength" name="feedback.message" id="message" ng-model="vm.feedback.message" md-select-on-focus at-message-validator></textarea>
+
+                    <div ng-messages="vm.form['feedback.message'].$error" multiple>
+                        <div ng-message="required" translate="PROFILE.ERRORS.BIO_REQUIRED"></div>
+                        <div ng-message="messageValidator" translate="PROFILE.ERRORS.BIO_VALIDATOR"></div>
+                    </div>
+                </md-input-container>
+
+
+                <md-button type="submit" ng-disabled="vm.form.$invalid" class="md-raised md-primary">{{'FEEDBACK.SEND_BUTTON' | translate}}</md-button>
+
+                <md-button ng-disabled="vm.form.$invalid" ng-click="vm.submitFormError()" class="md-raised md-primary">{{'FEEDBACK.SEND_BUTTON_TEST' | translate}}</md-button>
+
+            </form>
+
+    </md-whiteframe>
+</md-content>

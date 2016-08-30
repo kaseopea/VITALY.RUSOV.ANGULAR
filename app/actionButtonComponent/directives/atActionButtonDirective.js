@@ -5,11 +5,12 @@
         return {
             restrict: 'E',
             scope: {
-                buttonTitle: '@buttonTitle'
+                buttonTitle: '@buttonTitle',
+                ngModel : '='
             },
+            // bindToController: true,
             controller: 'atActionButtonCtrl as vm',
-            templateUrl: 'app/actionButtonComponent/tpl/atActionButton.tpl.html',
-            transclude: true
+            templateUrl: 'app/actionButtonComponent/tpl/atActionButton.tpl.html'
         };
     };
     angular.module('atActionButton').directive('atActionButton', [atActionButtonDirective]);

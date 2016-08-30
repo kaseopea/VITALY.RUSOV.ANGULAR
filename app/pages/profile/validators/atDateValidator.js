@@ -1,7 +1,7 @@
 // Biography Validator
 // =====================================================================================================================
 (function () {
-    var atDateValidatorFunc = function (CONST_VALIDATORS) {
+    var atDateValidatorFunc = function (CONST) {
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -23,5 +23,5 @@
         };
     };
 
-    angular.module('app.profile').directive('atDateValidator', ['CONST_VALIDATORS', atDateValidatorFunc]);
+    angular.module('app.profile').directive('atDateValidator', ['CONST', atDateValidatorFunc]);
 })();

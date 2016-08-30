@@ -1,7 +1,6 @@
-<!--ng-mouseenter="vm.showActions()" ng-mouseleave="vm.showActions()"-->
 <div class="at-action-button">
     <div class="at-action-title" ng-click="vm.showActions()">{{buttonTitle}}</div>
-    <div class="at-action-dropdown" ng-show="vm.showActionsMenu" ng-transclude>
-
+    <div class="at-action-dropdown" ng-show="vm.showActionsMenu">
+            <at-action-item ng-model="action.action" callback="action.callback" error-callback="action.errorCallback" ng-repeat="action in vm.actions">{{ action.title | translate }}</at-action-item>
     </div>
 </div>

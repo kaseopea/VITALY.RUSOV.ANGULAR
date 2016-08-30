@@ -11,6 +11,7 @@
               ng-submit="vm.submitProfileUpdateForm()">
 
             <input type="hidden" name="user.email" ng-model="vm.user.name">
+            <input type="hidden" name="user.role" ng-model="vm.user.role">
 
             <md-input-container class="md-block">
                 <label for="name" translate="PROFILE.LABELS.NAME_LABEL"></label>
@@ -23,7 +24,6 @@
                     <div ng-message="nameValidator" translate="PROFILE.ERRORS.NAME_VALIDATOR"></div>
                     <div ng-message="nameWords" translate="PROFILE.ERRORS.NAME_WORDS_VALIDATOR"
                          translate-values="{maxWords: vm.nameMaxWords}"></div>
-                </div>
                 </div>
             </md-input-container>
 
@@ -64,8 +64,7 @@
             </md-input-container>
 
 
-            <md-button type="submit" ng-disabled="profileForm.$invalid" class="md-raised md-primary">{{
-                'PROFILE.EDIT.SAVE_PROFILE_BUTTON' | translate}}
+            <md-button type="submit" ng-disabled="profileForm.$invalid || vm.loading" class="md-raised md-primary">{{'PROFILE.EDIT.SAVE_PROFILE_BUTTON' | translate}}
             </md-button>
 
         </form>

@@ -4,10 +4,10 @@
     </md-toolbar>
     <md-content layout="column" class="md-padding">
 
-        <form name="forgotForm" class="forgotForm" ng-submit="vm.submitForgotForm()">
+        <form name="forgotForm" class="forgotForm" ng-submit="vm.submitForgotForm()" novalidate>
 
             <md-input-container>
-                <label translate="AUTH.LABELS.EMAIL">Email</label>
+                <label translate="AUTH.LABELS.EMAIL"></label>
                 <input type="text" name="email" required="required" at-email-validator ng-model="vm.login" >
 
                 <div ng-messages="forgotForm['email'].$error">

@@ -23,8 +23,10 @@ var user1 = new UserManager({
     name: 'Olga',
     birthdate: '08-04-1984',
     age: 32,
-    bio: 'Nice beaver!'
+    bio: 'Nice beaver!',
+    role: 'admin'
 });
+
 var user2 = new UserManager({
     email: 'peter@mail.ru',
     password: md5('123'),
@@ -33,8 +35,9 @@ var user2 = new UserManager({
     age: 18,
     bio: 'Do not have any bio right now!'
 });
-//user2.createUser();
 
+// user1.createUser();
+// user2.createUser();
 
 // CONFIGS
 // =====================================================================================================================
@@ -58,14 +61,9 @@ app.use(session({
 
 }));
 
+
 // Static content
 app.use( "/", express.static(rootDir));
-
-// timeout for all requests
-//app.use(function(req,res,next){
-//    setTimeout(next, 10*1000)
-//});
-
 
 // Router Settings
 // =====================================================================================================================

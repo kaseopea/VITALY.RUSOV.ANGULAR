@@ -2,10 +2,10 @@
 // =====================================================================================================================
 (function () {
 
-    var langCtrlFunc = function ($scope, $rootScope, $translate, localStorageService) {
+    var langCtrlFunc = function ($translate, localStorageService, userDataService) {
         var vm = this;
 
-        vm.activeLanguage = $rootScope.language || $translate.preferredLanguage();
+        vm.activeLanguage = userDataService.getUserLanguage();
 
         vm.switchLang = function (key) {
             $translate.use(key);
@@ -14,6 +14,6 @@
         };
     };
 
-    angular.module('app').controller('languageCtrl', ['$scope', '$rootScope', '$translate', 'localStorageService', langCtrlFunc]);
+    angular.module('app').controller('languageCtrl', ['$translate', 'localStorageService', 'userDataService', langCtrlFunc]);
 
 })();

@@ -3,9 +3,6 @@ var _ = require("lodash");
 
 //Cache Database
 var db = require("./db.js");
-//var NodeCache = require( "node-cache" );
-//var cache = new NodeCache( { checkperiod: 0 } );
-//var db = require('../data/users.json');
 
 // USER MODEL Structure
 // =====================================================================================================================
@@ -30,33 +27,30 @@ UserManager.prototype.set = function (name, value) {
 // Sanitize data
 // =====================================================================================================================
 UserManager.prototype.sanitize = function (data) {
-    data = data || {};
-    schema = schemas.user;
+    var data = data || {};
+    var schema = schemas.user;
     return _.pick(_.defaults(data, schema), _.keys(schema));
 };
 
 // Create user
 // =====================================================================================================================
 UserManager.prototype.createUser = function () {
-
     var self = this;
-
-    // todo:validation
-    // before inserting check if already exists
-    db.find(self.data, function (err, found) {
-        if (!found.length) {
-
-            //inserting
-            db.insert(self.data, function (err, newData) {
-                if (err) {
-                    console.log('[Error] ', err);
-                } else {
-                    console.log('[SUCCESS] Added new record: ', newData);
-                }
-            });
-        } else {
-            console.log('[ERROR] Already have such record!');
-        }
+    return new Promise(function (resolve, reject) {
+        db.find(self.data, function (err, found) {
+            if (!found.length) {
+                //inserting
+                db.insert(self.data, function (err, newData) {
+                    if (err) {
+                        reject('[Error] ', err);
+                    } else {
+                        resolve(newData);
+                    }
+                });
+            } else {
+                reject('[ERROR] Already have such record!');
+            }
+        });
     });
 };
 
@@ -103,10 +97,13 @@ UserManager.prototype.getUser = function(email) {
 // Update User
 // =====================================================================================================================
 UserManager.prototype.updateUser = function(userObj) {
+	var login = userObj.email;
+    var userID = userObj._id;
 
     return new Promise(function (resolve, reject) {
         db.update({
-            email: userObj.email
+            // email: userObj.email
+            _id: userID
         }, {
             $set: {
                 "email": userObj.email,
@@ -114,11 +111,57 @@ UserManager.prototype.updateUser = function(userObj) {
                 "birthdate": userObj.birthdate,
                 "age": userObj.age,
                 "bio": userObj.bio,
+                "role": userObj.role
             }
         }, {}, function (err, numReplaced) {
             if (numReplaced) {
                 db.persistence.compactDatafile();
-                resolve(numReplaced);
+
+	            db.findOne({
+		            email: login
+	            }, function (err, found) {
+		            if (found) {
+			            resolve(found);
+		            } else {
+			            reject(new Error('User not found'));
+		            }
+	            });
+
+            } else {
+                reject(new Error('User not found'));
+            }
+        });
+
+    });
+};
+
+// Update User
+// =====================================================================================================================
+UserManager.prototype.deleteUser = function(login) {
+	return new Promise(function (resolve, reject) {
+		db.remove({
+			email: login
+		}, {}, function (err, numRemoved) {
+			if (numRemoved) {
+				db.persistence.compactDatafile();
+				resolve(numRemoved);
+			} else {
+				reject(new Error('Error! User not deleted.'));
+			}
+		});
+
+	});
+};
+
+// GET ALL USERS
+// =====================================================================================================================
+UserManager.prototype.getAllUsers = function() {
+
+    return new Promise(function (resolve, reject) {
+        db.find({
+        }, function (err, found) {
+            if (found) {
+                resolve(found);
             } else {
                 reject(new Error('User not found'));
             }

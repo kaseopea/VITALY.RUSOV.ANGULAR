@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.min.css">
-    <link rel="stylesheet" href="dist/assets/css/atActionButton.css">
-    <link rel="stylesheet" href="dist/assets/css/style.css">
+    <link rel="stylesheet" href="app/assets/css/atActionButton.css">
+    <link rel="stylesheet" href="app/assets/css/style.css">
     <link rel="icon" href="app/assets/images/favicon.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="app/assets/images/favicon32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="app/assets/images/favicon64.png" sizes="64x64" type="image/png">
 </head>
 <body layout="column">
     <div class="at-layout" ui-view></div>
 
     <!-- Libs -->
-    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="node_modules/angular-translate/dist/angular-translate.min.js"></script>
     <script src="node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
@@ -32,55 +34,76 @@
     <script src="node_modules/moment/min/moment.min.js"></script>
 
     <!-- App bootstrap & config -->
-    <script src="dist/common/app.module.js"></script>
-    <script src="dist/common/app.run.js"></script>
-    <script src="dist/config/app.const.js"></script>
-    <script src="dist/config/translate.config.js"></script>
-    <script src="dist/config/app.config.js"></script>
-    <script src="dist/config/states.config.js"></script>
+    <script src="app/common/app.module.js"></script>
+    <script src="app/common/app.run.js"></script>
+    <script src="app/config/app.const.js"></script>
+    <script src="app/config/translate.config.js"></script>
+    <script src="app/config/app.config.js"></script>
+    <script src="app/config/states.config.js"></script>
 
     <!-- Common -->
-    <script src="dist/common/languageCtrl.js"></script>
-    <script src="dist/common/toastServices.js"></script>
-
+    <script src="app/common/languageCtrl.js"></script>
+    <script src="app/common/decorators/controllerServiceDecorator.js"></script>
+    <script src="app/common/services/toastServices.js"></script>
+    <script src="app/common/services/loaderService.js"></script>
+    <script src="app/common/services/userDataService.js"></script>
+    <script src="app/common/services/httpLoggerService.js"></script>
+    <script src="app/common/interceptors/httpLogger.js"></script>
+    <script src="app/common/providers/startupTimeProvider.js"></script>
 
     <!-- Auth module -->
-    <script src="dist/pages/auth/auth.module.js"></script>
-    <script src="dist/pages/auth/services/authService.js"></script>
-    <script src="dist/pages/auth/login/controllers/loginCtrl.js"></script>
-    <script src="dist/pages/auth/forgot/controllers/forgotCtrl.js"></script>
-    <script src="dist/pages/auth/logout/controllers/logoutCtrl.js"></script>
+    <script src="app/pages/auth/auth.module.js"></script>
+    <script src="app/pages/auth/services/authService.js"></script>
+    <script src="app/pages/auth/login/controllers/loginCtrl.js"></script>
+    <script src="app/pages/auth/forgot/controllers/forgotCtrl.js"></script>
+    <script src="app/pages/auth/logout/controllers/logoutCtrl.js"></script>
     <!-- Auth Validators -->
-    <script src="dist/pages/auth/validators/atEmailValidator.js"></script>
+    <script src="app/pages/auth/validators/atEmailValidator.js"></script>
 
     <!-- Dashboard -->
     <script src="app/pages/dashboard/controllers/dashboardCtrl.js"></script>
 
     <!-- Profile -->
-    <script src="dist/pages/profile/profile.module.js"></script>
-    <script src="dist/pages/profile/services/profileService.js"></script>
-    <script src="dist/pages/profile/controllers/profileCtrl.js"></script>
-    <script src="dist/pages/profile/view/controllers/profileViewCtrl.js"></script>
-    <script src="dist/pages/profile/edit/controllers/profileEditCtrl.js"></script>
+    <script src="app/pages/profile/profile.module.js"></script>
+    <script src="app/pages/profile/services/profileService.js"></script>
+    <script src="app/pages/profile/controllers/profileCtrl.js"></script>
+    <script src="app/pages/profile/view/controllers/profileViewCtrl.js"></script>
+    <script src="app/pages/profile/edit/controllers/profileEditCtrl.js"></script>
+
     <!-- Profile Validators -->
-    <script src="dist/pages/profile/validators/atAgeValidator.js"></script>
-    <script src="dist/pages/profile/validators/atDateValidator.js"></script>
-    <script src="dist/pages/profile/validators/atBioValidator.js"></script>
-    <script src="dist/pages/profile/validators/atNameValidator.js"></script>
+    <script src="app/pages/profile/validators/atAgeValidator.js"></script>
+    <script src="app/pages/profile/validators/atDateValidator.js"></script>
+    <script src="app/pages/profile/validators/atBioValidator.js"></script>
+    <script src="app/pages/profile/validators/atNameValidator.js"></script>
 
 
     <!-- Tree View -->
-    <script src="dist/pages/treeview/controllers/treeviewCtrl.js"></script>
-    <script src="dist/pages/treeview/services/treeService.js"></script>
+    <script src="app/pages/treeview/controllers/treeviewCtrl.js"></script>
+    <script src="app/pages/treeview/services/treeFactory.js"></script>
 
     <!-- Action Button -->
-    <script src="dist/actionButtonComponent/atActionButton.module.js"></script>
-    <script src="dist/actionButtonComponent/controllers/atActionButtonCtrl.js"></script>
-    <script src="dist/actionButtonComponent/controllers/atActionItemCtrl.js"></script>
-    <script src="dist/actionButtonComponent/directives/atActionButtonDirective.js"></script>
-    <script src="dist/actionButtonComponent/directives/atActionItemDirective.js"></script>
+    <script src="app/actionButtonComponent/atActionButton.module.js"></script>
+    <script src="app/actionButtonComponent/controllers/atActionButtonCtrl.js"></script>
+    <script src="app/actionButtonComponent/controllers/atActionItemCtrl.js"></script>
+    <script src="app/actionButtonComponent/directives/atActionButtonDirective.js"></script>
+    <script src="app/actionButtonComponent/directives/atActionItemDirective.js"></script>
+    <script src="app/actionButtonComponent/services/actionButtonFactory.js"></script>
+    <script src="app/pages/actiontest/controllers/actionTestCtrl.js"></script>
 
-    <script src="dist/pages/actiontest/controllers/actionTestCtrl.js"></script>
+    <!-- Users List -->
+    <script src="app/pages/users/users.module.js"></script>
+    <script src="app/pages/users/controllers/usersListCtrl.js"></script>
+    <script src="app/pages/users/controllers/editUserCtrl.js"></script>
+    <script src="app/pages/users/controllers/createUserCtrl.js"></script>
+    <script src="app/pages/users/services/usersService.js"></script>
 
+    <!-- Feedback -->
+    <script src="app/pages/feedback/feedback.module.js"></script>
+    <script src="app/pages/feedback/controllers/feedbackCtrl.js"></script>
+    <script src="app/pages/feedback/services/emailService.js"></script>
+    <script src="app/pages/feedback/validators/atMessageValidator.js"></script>
+
+    <script src="app/pages/feedbackDecorated/feedbackDecorated.module.js"></script>
+    <script src="app/pages/feedbackDecorated/decorators/emailServiceDecorator.js"></script>
 </body>
 </html>

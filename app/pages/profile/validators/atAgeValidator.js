@@ -1,7 +1,7 @@
 // AGE Validator
 // =====================================================================================================================
 (function () {
-    var atAgeValidatorFunc = function (CONST_VALIDATORS) {
+    var atAgeValidatorFunc = function (CONST) {
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -13,11 +13,11 @@
                 };
 
                 ctrl.$validators.ageValidator = function (modelValue) {
-                    return _.inRange(parseInt(modelValue, 10), CONST_VALIDATORS.AGE_MINIMUM, CONST_VALIDATORS.AGE_MAXIMUM + 1);
+                    return _.inRange(parseInt(modelValue, 10), CONST.AGE_MINIMUM, CONST.AGE_MAXIMUM + 1);
                 };
 
             }
         };
     };
-    angular.module('app.profile').directive('atAgeValidator', ['CONST_VALIDATORS', atAgeValidatorFunc]);
+    angular.module('app.profile').directive('atAgeValidator', ['CONST', atAgeValidatorFunc]);
 })();

@@ -1,7 +1,7 @@
 // Email Validator
 // =====================================================================================================================
 (function () {
-    var atEmailValidatorFunc = function (CONST_VALIDATORS) {
+    var atEmailValidatorFunc = function (CONST) {
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -22,5 +22,5 @@
             }
         };
     };
-    angular.module('app').directive('atEmailValidator', ['CONST_VALIDATORS', atEmailValidatorFunc]);
+    angular.module('app').directive('atEmailValidator', ['CONST', atEmailValidatorFunc]);
 })();

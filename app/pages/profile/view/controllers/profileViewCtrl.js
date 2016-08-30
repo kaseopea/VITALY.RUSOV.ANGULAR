@@ -2,9 +2,9 @@
 // =====================================================================================================================
 (function () {
 
-    var profileViewCtrlFunc = function ($http, $scope, $rootScope, $state, localStorageService, profileService ) {
+    var profileViewCtrlFunc = function ($rootScope, $state, userDataService, profileService ) {
         var vm = this;
-        var currentUser = angular.fromJson(localStorageService.get('user'));
+        var currentUser = userDataService.getUserData();
 
         vm.loader = true;
         vm.showContent = false;
@@ -19,6 +19,6 @@
                 vm.showContent = true;
             });
     };
-    angular.module('app.profile').controller('profileViewCtrl', ['$http', '$scope', '$rootScope', '$state', 'localStorageService', 'profileService', profileViewCtrlFunc]);
+    angular.module('app.profile').controller('profileViewCtrl', ['$rootScope', '$state', 'userDataService', 'profileService', profileViewCtrlFunc]);
 
 })();

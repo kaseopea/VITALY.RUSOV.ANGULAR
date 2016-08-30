@@ -9,6 +9,7 @@
         var firstTimeout, lastTimeout;
         var clicked = false;
         var actionPromise;
+        var callback, errorCallback;
         var statuses;
 
         //Statuses
@@ -28,11 +29,13 @@
         vm.actionStart = function () {
             if (!clicked) {
                 setStatus(1);
+                vm.loadingActiveClass = 'at-action-loading';
                 actionPromise = scope.ngModel();
+                callback = scope.callback;
+                errorCallback = scope.errorCallback;
 
                 firstTimeout = $timeout(angular.noop, firstDelay);
                 lastTimeout = $timeout(angular.noop, finalCheckDelay);
-
 
                 firstTimeout.then(function () {
                         return $q.race([actionPromise,lastTimeout]);
@@ -41,16 +44,26 @@
                         if (res) {
                             //setting status based on res success
                             setStatus(res.data.success ? 2 : 3);
+                            vm.loadingActiveClass = '';
                         } else {
                             // final check error with no response
                             setStatus(3);
+                            vm.loadingActiveClass = '';
                         }
+                        if (callback) {
+                            callback();
+                        }
+                        clicked = false;
                         // clear last timeout
                         $timeout.cancel(lastTimeout);
                     })
                     .catch(function (err) {
                         // if something go wrong on serverside
+                        if (errorCallback) {
+                            errorCallback();
+                        }
                         setStatus(3);
+                        vm.loadingActiveClass = '';
                     });
 
                 clicked = true;

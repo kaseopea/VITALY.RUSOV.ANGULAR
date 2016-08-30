@@ -5,8 +5,11 @@
         return {
             restrict: 'E',
             scope: {
-                ngModel : '='
+                ngModel : '=',
+                callback: '=',
+				errorCallback: '='
             },
+            // bindToController: true,
             templateUrl: 'app/actionButtonComponent/tpl/atActionItem.tpl.html',
             controller: 'atActionItemCtrl as vm',
             transclude: true

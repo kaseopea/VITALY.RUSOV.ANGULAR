@@ -1,4 +1,5 @@
 <div layout="column" layout-fill>
+
     <md-toolbar layout-xs="column">
         <div class="md-toolbar-tools">
             <a><span>{{ 'GENERAL.PROJECT_TITLE' | translate }}</span></a>
@@ -6,25 +7,25 @@
             <span flex></span>
 
             <span ng-controller="languageCtrl as langCtrl">
-                <md-button ng-click="langCtrl.switchLang('en')" ng-hide="langCtrl.activeLanguage == 'en'">English
-                </md-button>
-                <md-button ng-click="langCtrl.switchLang('ru')" ng-hide="langCtrl.activeLanguage == 'ru'">Русский
-                </md-button>
+                <md-button ng-click="langCtrl.switchLang('en')" ng-hide="langCtrl.activeLanguage == 'en'"><span translate-language="'en'">{{ 'LANG_NAME' | translate }}</span></md-button>
+                <md-button ng-click="langCtrl.switchLang('ru')" ng-hide="langCtrl.activeLanguage == 'ru'"><span translate-language="'ru'">{{ 'LANG_NAME' | translate }}</span></md-button>
             </span>
 
             <span flex></span>
 
-            <md-button ui-sref="treeview">{{ 'TREEVIEW.TITLE' | translate }}</md-button>
-            <md-button ui-sref="actionTest">{{ 'ACTIONTEST.TITLE' | translate }}</md-button>
-
-            <span flex></span>
-
-            <md-button ui-sref="login" ng-show="!dashboard.loggedIn">{{ 'AUTH.SIGNIN' | translate }}</md-button>
-            <md-button ui-sref="viewProfile" ng-show="dashboard.loggedIn" translate="AUTH.USERGREETING"
-                       translate-values="{ username: dashboard.user.email }" aria-label="Profile"></md-button>
-            <md-button ui-sref="logout" ng-show="dashboard.loggedIn">{{ 'AUTH.LOGOUT' | translate }}</md-button>
+            <md-button ui-sref="login" ng-if="!vm.loggedIn">{{ 'AUTH.SIGNIN' | translate }}</md-button>
+            <md-button ui-sref="viewProfile" ng-if="vm.loggedIn" translate="AUTH.USERGREETING" translate-values="{ username: vm.user.email }" aria-label="Profile"></md-button>
+            <md-button ui-sref="logout" ng-if="vm.loggedIn">{{ 'AUTH.LOGOUT' | translate }}</md-button>
         </div>
     </md-toolbar>
+
+    <md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-sref="treeview" name="treeview">{{ 'TREEVIEW.TITLE' | translate }}</md-nav-item>
+        <md-nav-item md-nav-sref="actionTest" name="actionTest">{{ 'ACTIONTEST.TITLE' | translate }}</md-nav-item>
+        <md-nav-item md-nav-sref="userList" name="userList" ng-if="vm.isAdmin">{{ 'USERS.MANAGE_TITLE' | translate }}</md-nav-item>
+        <md-nav-item md-nav-sref="feedback" name="feedback" ng-if="!vm.isAdmin">{{ 'FEEDBACK.TITLE' | translate }}</md-nav-item>
+    </md-nav-bar>
+
     <md-content class="dashboard-content">
         <div ui-view></div>
     </md-content>

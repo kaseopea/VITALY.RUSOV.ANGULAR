@@ -1,7 +1,7 @@
 // Bio Validator
 // =====================================================================================================================
 (function () {
-    var atBioValidatorFunc = function (CONST_VALIDATORS) {
+    var atBioValidatorFunc = function (CONST) {
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -10,11 +10,11 @@
                 // check for minimum length
                 ctrl.$validators.bioValidator = function (modelValue) {
                     if (modelValue) {
-                        return modelValue.length >= CONST_VALIDATORS.MIN_BIO_LENGTH;
+                        return modelValue.length >= CONST.MIN_BIO_LENGTH;
                     }
                 };
             }
         };
     };
-    angular.module('app.profile').directive('atBioValidator', ['CONST_VALIDATORS', atBioValidatorFunc]);
+    angular.module('app.profile').directive('atBioValidator', ['CONST', atBioValidatorFunc]);
 })();
