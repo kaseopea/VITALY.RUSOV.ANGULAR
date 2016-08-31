@@ -2,7 +2,7 @@
 // =====================================================================================================================
 (function () {
 
-    var loginUser = function ($rootScope, $http, $state, authService, loaderService, toastService, userDataService, startupAppTime, localStorageService) {
+    var loginUser = function ($rootScope, $http, $state, authService, loaderService, toastService, userDataService, startupAppTime) {
 
         var vm = this;
         
@@ -27,16 +27,9 @@
             authService.userLogin(vm.user)
                 .then(function (res) {
                     if (res.data.success) {
-
-						localStorageService.clearAll();
-
 	                    userDataService.setUserData(res.data.user);
 	                    userDataService.authorizeUser();
-
-
-
                         $state.go('viewProfile');
-                        // loaderService.hideLoader();
                     } else {
                         loaderService.hideLoader();
                         // Show toast with error message
@@ -49,11 +42,9 @@
                     // Something wrong with serverside, show error toast
                     toastService.show(err.toString());
                 });
-
         };
-
     };
 
-    angular.module('app.auth').controller('loginCtrl', ['$rootScope', '$http', '$state', 'authService', 'loaderService', 'toastService', 'userDataService', 'startupAppTime', 'localStorageService',loginUser]);
+    angular.module('app.auth').controller('loginCtrl', ['$rootScope', '$http', '$state', 'authService', 'loaderService', 'toastService', 'userDataService', 'startupAppTime',loginUser]);
 
 })();

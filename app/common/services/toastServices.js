@@ -10,7 +10,7 @@
                 $mdToast.simple()
                     .textContent(message)
                     .position('top right')
-                    .hideDelay(5000)
+                    .hideDelay(0)
             );
         };
 

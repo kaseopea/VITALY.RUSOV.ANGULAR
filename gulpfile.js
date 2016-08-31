@@ -232,3 +232,24 @@ var buildPreTasks = [
 gulp.task('build', buildPreTasks, function () {
 
 });
+
+
+// E2E Tests
+// =====================================================================================================================
+
+gulp.task('webdriver_update', function (cb) { return require('gulp-protractor').webdriver_update(cb)});
+gulp.task('e2e', ['webdriver_update'], function (cb) {
+	var protractor = require('gulp-protractor').protractor;
+	gulp.src(['./tests/e2e/*.spec.js']).pipe(protractor({configFile: './tests/protractor.config.js'})).on('end', cb);
+});
+
+gulp.task('run-e2e', function (done) {
+	var server = require("./dist/app.js");
+	var exec = require('child_process').exec;
+	var child = exec('gulp e2e', function (err, stdErr, stdOut) {
+		server.http.close();
+		done();
+	});
+	child.stdout.pipe(process.stdout);
+	child.stderr.pipe(process.stderr);
+});

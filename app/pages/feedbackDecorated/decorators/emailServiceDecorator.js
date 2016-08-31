@@ -57,9 +57,7 @@
 					})
 				})
 			), $q.reject()).catch(function (err) {
-				// console.error('NOT SEND AT ALL');
-				// deferred.reject('NOT SEND AT ALL');
-				throw err;
+				throw $filter('translate')(err);
 			}));
 			return deferred.promise;
 		};

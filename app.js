@@ -58,7 +58,6 @@ app.use(session({
     cookie: {
         maxAge: 10 * 60 * 1000
     }
-
 }));
 
 
@@ -82,7 +81,17 @@ app.all('/api/*', function (req, res, next) {
 });
 
 
+
 // START THE SERVER
 // =====================================================================================================================
+var serverInstance = {
+    app: app
+};
+var appListen = app.listen;
+app.listen = function() {
+    return serverInstance.http = appListen.apply(this, arguments);
+};
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
+module.exports = serverInstance;

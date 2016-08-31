@@ -8,7 +8,7 @@
 </div>
 <div class="users-content" ng-show="vm.showContent">
     <md-content class="dashboard-content-inner">
-        <md-button class="md-raised" ng-click="vm.createNewUser()">{{ 'USERS.LIST.NEW_USER' | translate}}</md-button>
+        <md-button class="md-raised create-user" ng-click="vm.createNewUser()">{{ 'USERS.LIST.NEW_USER' | translate}}</md-button>
         <div class="t-table">
             <div ng-repeat="user in vm.users | orderBy:'email'" class="t-row">
 

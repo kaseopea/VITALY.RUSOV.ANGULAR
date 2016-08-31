@@ -1,4 +1,5 @@
 {"email":"peter@mail.ru","password":"202cb962ac59075b964b07152d234b70","name":"Peter","birthdate":"11-10-1991","age":"23","bio":"Do not have any bio right now!","role":"user","_id":"BHGCTaxV3HicbiCB"}
+{"email":"new_user@mail.ru","password":"202cb962ac59075b964b07152d234b70","name":null,"birthdate":null,"age":null,"bio":null,"role":"user","_id":"Hk01WtfRqCEvkxSu"}
 {"email":"volga@mail.ru","password":"202cb962ac59075b964b07152d234b70","name":null,"birthdate":null,"age":null,"bio":null,"role":"user","_id":"jIlrmWep7KXqZZfZ"}
 {"email":"masha@mail.ru","password":"202cb962ac59075b964b07152d234b70","name":"Masha Ivanova","birthdate":"11-10-1991","age":"32","bio":"Hello from Russia!","role":"user","_id":"otvEtxdG2rdhaRmw"}
 {"email":"olga@mail.ru","password":"202cb962ac59075b964b07152d234b70","name":"Olga Roskva","birthdate":"08-04-1984","age":"23","bio":"Nice beaver!","role":"admin","_id":"zHoouqqkFwTcrX0U"}

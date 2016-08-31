@@ -36,9 +36,14 @@
     "gulp-autoprefixer": "3.1.0",
     "gulp-babel": "6.1.2",
     "gulp-changed": "1.3.2",
+    "gulp-jasmine": "2.4.0",
     "gulp-nodemon": "2.1.0",
+    "gulp-protractor": "3.0.0",
     "gulp-sass": "2.3.2",
+    "jasmine-reporters": "2.2.0",
+    "nconf": "0.8.4",
     "nodemon": "1.10.0",
+    "protractor-linkuisref-locator": "1.1.2",
     "vinyl-fs": "2.4.3"
   }
 }
